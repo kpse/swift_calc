@@ -47,6 +47,14 @@ class ViewController: UIViewController {
         currentStatement = nil
     }
     @IBAction func reverseSign(sender: AnyObject) {
+        if let value = display.text {
+            if value.rangeOfString("-") != nil {
+                display.text = value.stringByReplacingOccurrencesOfString("-", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            } else {
+                display.text = "-\(value)"
+            }
+        }
+
     }
     
     @IBAction func operatorSelect(sender: UIButton) {
