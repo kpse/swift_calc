@@ -9,43 +9,46 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var display: UILabel!
-
+    var currentStatement: ((a2: Double) -> Statement)?
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     @IBAction func dotPress(sender: AnyObject) {
     }
-
+    
     @IBAction func numberPress(sender: UIButton) {
-        display.text = "clicked : \(numberMaps(sender.tag))"
+        display.text = "\(numberMaps(sender.tag))"
     }
     @IBAction func equalPressed(sender: AnyObject) {
-           display.text = "the answer is A"
+        let arg2 = (display.text! as NSString).doubleValue
+        if let s = currentStatement {
+           display.text = "\(s(a2: arg2).eval())"
+        }
+        
     }
     
     @IBAction func cleanUp(sender: AnyObject) {
         display.text = "0"
+        currentStatement = nil
     }
     @IBAction func reverseSign(sender: AnyObject) {
     }
     
     @IBAction func operatorSelect(sender: UIButton) {
-        display.text = "clicked operator: \(operatorMaps(sender.tag))"
+        let arg1 = (display.text! as NSString).doubleValue
+        let op = OperatorFactory.create(sender.tag)
+        currentStatement = Statement.curry(arg1, op:op)
     }
     
     func numberMaps(tag: Int) -> Int {
-        return tag
-    }
-
-    func operatorMaps(tag: Int) -> Int {
         return tag
     }
     
