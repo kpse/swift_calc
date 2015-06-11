@@ -22,6 +22,15 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func percentPress(sender: AnyObject) {
+        continuousInputing = false
+        currentStatement = nil
+        let s = (display.text! as NSString).doubleValue / 100
+        display.text = reviseDisplay("\(s)")
+    }
+    
+    
     @IBAction func dotPress(sender: AnyObject) {
         if let value = display.text {
             if value.rangeOfString(".") != nil {
@@ -82,14 +91,21 @@ class ViewController: UIViewController {
     }
     
     func reviseDisplay(input: String) -> String {
+        let simple = simplifyDouble(input)
+        return simple
+    }
+    
+    func simplifyDouble(input: String) -> String {
         var ierror: NSError?
         var regex:NSRegularExpression = NSRegularExpression(pattern: "\\.0$", options: NSRegularExpressionOptions.CaseInsensitive, error: &ierror)!
         return regex.stringByReplacingMatchesInString(input, options: nil, range: NSMakeRange(0, count(input)), withTemplate: "")
     }
     
+    
+    
     func appendNumber(newChar: String, old: String?) -> String {
         if let s = old {
-            if count(s) >= 9 {
+            if count(s) >= 14 {
                 return s
             }
             if s == "0" {
