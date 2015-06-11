@@ -12,6 +12,12 @@ class Statement {
     func eval() -> Double {
         return 0
     }
+    var priority : Int {
+        return 0
+    }
+    func postpone(op: Operator, arg: Statement) -> Statement {
+        return self
+    }
 }
 
 class SimpleStatement : Statement {
@@ -22,7 +28,12 @@ class SimpleStatement : Statement {
     override func eval() -> Double {
         return arg
     }
-    
+    func postpone(op: Operator, arg2: Statement) -> Statement {
+        return ComplexStatement(a1: SimpleStatement(a1: arg), a2: arg2, op: op)
+    }
+    override var priority : Int {
+        return 3
+    }
 }
 
 class ComplexStatement: Statement {
@@ -35,10 +46,17 @@ class ComplexStatement: Statement {
         self.op = op
     }
     override func eval() -> Double {
-        return op.execute(arg1.eval(), arg2: arg2.eval())
+        return op.execute(arg1, arg2: arg2)
     }
     class func curry(a1: Statement, op: Operator)(a2: Statement) -> Statement {
         return ComplexStatement(a1: a1, a2: a2, op: op)
+    }
+    override var priority : Int {
+        return op.prioriry
+    }
+
+    override func postpone(op: Operator, arg: Statement) -> Statement {
+        return ComplexStatement(a1: arg1, a2: ComplexStatement(a1: arg2, a2: arg, op: op), op: self.op)
     }
 }
 

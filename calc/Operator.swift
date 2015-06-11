@@ -9,28 +9,54 @@
 import Foundation
 
 class Operator {
-    func execute(arg1: Double, arg2: Double) -> Double {
+    var prioriry : Int {
+        return 0
+    }
+    func execute(arg1: Statement, arg2: Statement) -> Double {
         return 0
     }
 }
 class AddOperator: Operator {
-    override func execute(arg1: Double, arg2: Double) -> Double {
-        return arg1 + arg2
+    override func execute(arg1: Statement, arg2: Statement) -> Double {
+        return arg1.eval() + arg2.eval()
+    }
+    override var prioriry: Int {
+        return 1
     }
 }
 class SubstractOperator: Operator {
-    override func execute(arg1: Double, arg2: Double) -> Double {
-        return arg1 - arg2
+    override var prioriry: Int {
+        return 1
+    }
+    override func execute(arg1: Statement, arg2: Statement) -> Double {
+        return arg1.eval() - arg2.eval()
     }
 }
 class MultipleOperator: Operator {
-    override func execute(arg1: Double, arg2: Double) -> Double {
-        return arg1 * arg2
+    override var prioriry: Int {
+        return 2
     }
+    override func execute(arg1: Statement, arg2: Statement) -> Double {
+        if prioriry > arg1.priority {
+            return arg1.postpone(self, arg: arg2).eval()
+        } else if prioriry > arg2.priority {
+            return arg2.postpone(self, arg: arg1).eval()
+        }
+        return arg1.eval() * arg2.eval()
+    }
+
 }
 class DivideOperator: Operator {
-    override func execute(arg1: Double, arg2: Double) -> Double {
-        return arg1 / arg2
+    override func execute(arg1: Statement, arg2: Statement) -> Double {
+        if prioriry > arg1.priority {
+            return arg1.postpone(self, arg: arg2).eval()
+        } else if prioriry > arg2.priority {
+            return arg2.postpone(self, arg: arg1).eval()
+        }
+        return arg1.eval() / arg2.eval()
+    }
+    override var prioriry: Int {
+        return 2
     }
 }
 
