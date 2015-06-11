@@ -24,5 +24,19 @@ class ViewController: UIViewController {
     @IBAction func numberDot(sender: UIButton) {
         display.text = "clicked : \(sender.tag)"
     }
+    @IBAction func equalPressed(sender: AnyObject) {
+           display.text = "the answer is A"
+    }
+    
+    @IBAction func cleanUp(sender: AnyObject) {
+        display.text = "0"
+    }
+    @IBAction func reverseSign(sender: AnyObject) {
+    }
+    
+    @IBAction func operatorSelect(sender: UIButton) {
+        display.text = "clicked : \(sender.tag)"
+    }
+    
 }
 
