@@ -45,7 +45,12 @@ class ViewController: UIViewController {
     @IBAction func operatorSelect(sender: UIButton) {
         let arg1 = StatementFactory.create(display.text)
         let op = OperatorFactory.create(sender.tag)
-        currentStatement = ComplexStatement.curry(arg1, op:op)
+        if let statement = currentStatement {
+            currentStatement = ComplexStatement.curry(statement(a2:arg1), op:op)
+        } else {
+            currentStatement = ComplexStatement.curry(arg1, op:op)
+
+        }
         
     }
     
