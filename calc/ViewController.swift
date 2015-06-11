@@ -23,6 +23,13 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     @IBAction func dotPress(sender: AnyObject) {
+        if let value = display.text {
+            if value.rangeOfString(".") != nil {
+                display.text = value
+            } else {
+                display.text = "\(value)."
+            }
+        }
     }
     
     @IBAction func numberPress(sender: UIButton) {
