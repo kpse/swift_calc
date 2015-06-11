@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var display: UILabel!
     var currentStatement: ((a2: Statement) -> Statement)?
+    var continuousInputing = true
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -25,12 +26,18 @@ class ViewController: UIViewController {
     }
     
     @IBAction func numberPress(sender: UIButton) {
-        display.text = "\(numberMaps(sender.tag))"
+        if continuousInputing {
+            display.text = appendNumber("\(numberMaps(sender.tag))", old: display.text)
+        } else {
+            display.text = "\(numberMaps(sender.tag))"
+            continuousInputing = true
+        }
+        
     }
     @IBAction func equalPressed(sender: AnyObject) {
         let arg2 = StatementFactory.create(display.text)
         if let statement = currentStatement {
-            display.text = "\(statement(a2: arg2).eval())"
+            display.text = reviseDisplay("\(statement(a2: arg2).eval())")
         }
         
     }
@@ -49,13 +56,34 @@ class ViewController: UIViewController {
             currentStatement = ComplexStatement.curry(statement(a2:arg1), op:op)
         } else {
             currentStatement = ComplexStatement.curry(arg1, op:op)
-
+            
         }
+        continuousInputing = false
         
     }
     
     func numberMaps(tag: Int) -> Int {
         return tag
+    }
+    
+    func reviseDisplay(input: String) -> String {
+        var ierror: NSError?
+        var regex:NSRegularExpression = NSRegularExpression(pattern: "\\.0$", options: NSRegularExpressionOptions.CaseInsensitive, error: &ierror)!
+        return regex.stringByReplacingMatchesInString(input, options: nil, range: NSMakeRange(0, count(input)), withTemplate: "")
+    }
+    
+    func appendNumber(newChar: String, old: String?) -> String {
+        if let s = old {
+            if count(s) >= 9 {
+                return s
+            }
+            if s == "0" {
+                return newChar
+            }
+            return "\(s)\(newChar)"
+        }
+        return newChar
+        
     }
     
 }
