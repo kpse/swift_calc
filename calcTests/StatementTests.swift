@@ -1,6 +1,6 @@
 //
-//  calcTests.swift
-//  calcTests
+//  Statement.swift
+//  calc
 //
 //  Created by kpse on 6/11/15.
 //  Copyright (c) 2015 kpse. All rights reserved.
@@ -9,7 +9,8 @@
 import UIKit
 import XCTest
 
-class calcTests: XCTestCase {
+
+class StatementTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -21,20 +22,15 @@ class calcTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
     func testStatementCreate() {
-        XCTAssert(true, "Pass")
+        let s = StatementFactory.create("0")
+        XCTAssert(s.eval() == 0, "Pass")
     }
     
+    func testComplex() {
+        let a1 = StatementFactory.create("1")
+        let a2 = StatementFactory.create("2")
+        let r = ComplexStatement(a1:a1, a2:a2, op: AddOperator())
+        XCTAssert(r.eval() == 3, "Pass")
+    }
 }

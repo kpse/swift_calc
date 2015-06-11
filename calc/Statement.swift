@@ -8,55 +8,47 @@
 
 import Foundation
 
-class Operator {
-    func execute(arg1: Double, arg2: Double) -> Double {
+class Statement {
+    func eval() -> Double {
         return 0
     }
 }
-class AddOperator: Operator {
-    override func execute(arg1: Double, arg2: Double) -> Double {
-        return arg1 + arg2
+
+class SimpleStatement : Statement {
+    let arg : Double
+    init(a1: Double) {
+        arg = a1
     }
-}
-class SubstractOperator: Operator {
-    override func execute(arg1: Double, arg2: Double) -> Double {
-        return arg1 - arg2
+    override func eval() -> Double {
+        return arg
     }
-}
-class MultipleOperator: Operator {
-    override func execute(arg1: Double, arg2: Double) -> Double {
-        return arg1 * arg2
-    }
-}
-class DivideOperator: Operator {
-    override func execute(arg1: Double, arg2: Double) -> Double {
-        return arg1 / arg2
-    }
+    
 }
 
-class OperatorFactory {
-    class func create(tag : Int) -> Operator {
-        let maps : [Int:Operator] = [11:AddOperator(),12:SubstractOperator(), 13:MultipleOperator(), 14:DivideOperator()]
-        if let op = maps[tag] {
-            return op
-        }
-        return AddOperator()
-    }
-}
-
-class Statement {
-    let arg1: Double, arg2: Double
+class ComplexStatement: Statement {
+    let arg1: Statement, arg2: Statement
     
     let op : Operator
-    init(a1: Double, a2: Double, op: Operator) {
+    init(a1: Statement, a2: Statement, op: Operator) {
         arg1 = a1
         arg2 = a2
         self.op = op
     }
-    func eval() -> Double {
-        return op.execute(arg1, arg2: arg2)
+    override func eval() -> Double {
+        return op.execute(arg1.eval(), arg2: arg2.eval())
     }
-    class func curry(a1: Double, op: Operator)(a2: Double) -> Statement {
-        return Statement(a1: a1, a2: a2, op: op)
+    class func curry(a1: Statement, op: Operator)(a2: Statement) -> Statement {
+        return ComplexStatement(a1: a1, a2: a2, op: op)
+    }
+}
+
+class StatementFactory {
+    class func create(text: String?) -> Statement {
+        if let t = text {
+            return SimpleStatement(a1: (t as NSString).doubleValue)
+        }
+        else {
+            return SimpleStatement(a1: 0.0)
+        }
     }
 }

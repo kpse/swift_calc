@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var display: UILabel!
-    var currentStatement: ((a2: Double) -> Statement)?
+    var currentStatement: ((a2: Statement) -> Statement)?
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -28,9 +28,9 @@ class ViewController: UIViewController {
         display.text = "\(numberMaps(sender.tag))"
     }
     @IBAction func equalPressed(sender: AnyObject) {
-        let arg2 = (display.text! as NSString).doubleValue
-        if let s = currentStatement {
-           display.text = "\(s(a2: arg2).eval())"
+        let arg2 = StatementFactory.create(display.text)
+        if let statement = currentStatement {
+            display.text = "\(statement(a2: arg2).eval())"
         }
         
     }
@@ -43,9 +43,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func operatorSelect(sender: UIButton) {
-        let arg1 = (display.text! as NSString).doubleValue
+        let arg1 = StatementFactory.create(display.text)
         let op = OperatorFactory.create(sender.tag)
-        currentStatement = Statement.curry(arg1, op:op)
+        currentStatement = ComplexStatement.curry(arg1, op:op)
+        
     }
     
     func numberMaps(tag: Int) -> Int {

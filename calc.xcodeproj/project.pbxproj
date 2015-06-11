@@ -14,6 +14,10 @@
 		05086A2A1B292F7D002F4378 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05086A281B292F7D002F4378 /* LaunchScreen.xib */; };
 		05086A361B292F7E002F4378 /* calcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05086A351B292F7E002F4378 /* calcTests.swift */; };
 		05086A401B293CB6002F4378 /* Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05086A3F1B293CB6002F4378 /* Statement.swift */; };
+		05086A421B295E61002F4378 /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05086A411B295E61002F4378 /* Operator.swift */; };
+		05484F181B296EED00350524 /* StatementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05086A451B295EBC002F4378 /* StatementTests.swift */; };
+		05484F191B296F3A00350524 /* Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05086A3F1B293CB6002F4378 /* Statement.swift */; };
+		05484F1A1B296F3A00350524 /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05086A411B295E61002F4378 /* Operator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +42,8 @@
 		05086A341B292F7E002F4378 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05086A351B292F7E002F4378 /* calcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calcTests.swift; sourceTree = "<group>"; };
 		05086A3F1B293CB6002F4378 /* Statement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Statement.swift; sourceTree = "<group>"; };
+		05086A411B295E61002F4378 /* Operator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operator.swift; sourceTree = "<group>"; };
+		05086A451B295EBC002F4378 /* StatementTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatementTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +92,7 @@
 				05086A281B292F7D002F4378 /* LaunchScreen.xib */,
 				05086A1D1B292F7D002F4378 /* Supporting Files */,
 				05086A3F1B293CB6002F4378 /* Statement.swift */,
+				05086A411B295E61002F4378 /* Operator.swift */,
 			);
 			path = calc;
 			sourceTree = "<group>";
@@ -102,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				05086A351B292F7E002F4378 /* calcTests.swift */,
+				05086A451B295EBC002F4378 /* StatementTests.swift */,
 				05086A331B292F7E002F4378 /* Supporting Files */,
 			);
 			path = calcTests;
@@ -216,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				05086A401B293CB6002F4378 /* Statement.swift in Sources */,
+				05086A421B295E61002F4378 /* Operator.swift in Sources */,
 				05086A221B292F7D002F4378 /* ViewController.swift in Sources */,
 				05086A201B292F7D002F4378 /* AppDelegate.swift in Sources */,
 			);
@@ -225,6 +234,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05484F191B296F3A00350524 /* Statement.swift in Sources */,
+				05484F1A1B296F3A00350524 /* Operator.swift in Sources */,
+				05484F181B296EED00350524 /* StatementTests.swift in Sources */,
 				05086A361B292F7E002F4378 /* calcTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -413,6 +425,7 @@
 				05086A3B1B292F7E002F4378 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		05086A3C1B292F7E002F4378 /* Build configuration list for PBXNativeTarget "calcTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +434,7 @@
 				05086A3E1B292F7E002F4378 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
