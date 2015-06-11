@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var display: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,9 +21,11 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    @IBAction func dotPress(sender: AnyObject) {
+    }
 
-    @IBAction func numberDot(sender: UIButton) {
-        display.text = "clicked : \(sender.tag)"
+    @IBAction func numberPress(sender: UIButton) {
+        display.text = "clicked : \(numberMaps(sender.tag))"
     }
     @IBAction func equalPressed(sender: AnyObject) {
            display.text = "the answer is A"
@@ -35,7 +38,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func operatorSelect(sender: UIButton) {
-        display.text = "clicked : \(sender.tag)"
+        display.text = "clicked operator: \(operatorMaps(sender.tag))"
+    }
+    
+    func numberMaps(tag: Int) -> Int {
+        return tag
+    }
+
+    func operatorMaps(tag: Int) -> Int {
+        return tag
     }
     
 }
